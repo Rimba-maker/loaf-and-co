@@ -1,0 +1,1597 @@
+---
+---
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loaf & Co. Bakery — Sourdough & Artisan Bread Jakarta</title>
+  <meta name="description" content="Roti sourdough, croissant, dan artisan bread fresh dipanggang setiap hari di Jakarta. Tanpa pengawet, fermentasi 24 jam. Pre-order via WhatsApp." />
+  <meta property="og:title" content="Loaf & Co. Bakery" />
+  <meta property="og:description" content="Roti Asli, Dipanggang Hari Ini." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS — Starbucks DNA × Loaf & Co. Artisan Bakery
+       Palette adapted: corporate greens → deep herb greens
+       Cream canvas, dark forest bands, full-pill CTAs preserved
+    ============================================================ */
+    :root {
+      /* Brand greens */
+      --c-brand:       #2d5016;   /* deep herb — headings, brand moments */
+      --c-cta:         #4a7c24;   /* herb green — primary CTA fill */
+      --c-cta-hover:   #3a6019;   /* pressed CTA */
+      --c-band:        #1e2d14;   /* dark forest — feature bands + footer */
+
+      /* Canvas */
+      --c-canvas:      #f5f0e6;   /* warm wheat cream — primary page canvas */
+      --c-ceramic:     #ece7da;   /* slightly darker cream — dividers */
+      --c-white:       #ffffff;
+      --c-surface:     #f9f7f2;   /* off-white card surface */
+
+      /* Text */
+      --c-ink:         rgba(0,0,0,0.87);
+      --c-ink-soft:    rgba(0,0,0,0.54);
+      --c-on-dark:     rgba(255,255,255,1);
+      --c-on-dark-soft: rgba(255,255,255,0.68);
+
+      /* Accent */
+      --c-amber:       #c47a28;   /* wheat amber — badges */
+      --c-amber-light: #f5e9d4;
+
+      /* Shadows — whisper-soft layered (Starbucks pattern) */
+      --shadow-card: 0 0 0.5px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.18);
+      --shadow-nav:  0 1px 3px rgba(0,0,0,0.10), 0 2px 2px rgba(0,0,0,0.06), 0 0 2px rgba(0,0,0,0.07);
+      --shadow-frap: 0 0 6px rgba(0,0,0,0.24), 0 8px 12px rgba(0,0,0,0.14);
+
+      /* Spacing (rem-anchored at 16px, matching Starbucks scale intent) */
+      --s-1: 4px;  --s-2: 8px;   --s-3: 16px; --s-4: 24px;
+      --s-5: 32px; --s-6: 40px;  --s-7: 48px; --s-8: 56px; --s-9: 64px;
+
+      /* Radius — 12px cards, 50px buttons (Starbucks signature) */
+      --r-card:   12px;
+      --r-pill:   50px;
+
+      /* Typography */
+      --f-body:    'Nunito Sans', -apple-system, sans-serif;
+      --f-display: 'Playfair Display', 'Iowan Old Style', Georgia, serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--f-body);
+      background: var(--c-canvas);
+      color: var(--c-ink);
+      letter-spacing: -0.01em;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ============================================================
+       LAYOUT
+    ============================================================ */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--s-3);
+    }
+    @media (min-width: 768px)  { .container { padding: 0 var(--s-4); } }
+    @media (min-width: 1024px) { .container { padding: 0 var(--s-6); } }
+
+    .section          { padding: clamp(56px, 8vw, 96px) 0; }
+    .section--canvas  { background: var(--c-canvas); }
+    .section--white   { background: var(--c-white); }
+    .section--band    { background: var(--c-band); color: var(--c-on-dark); }
+    .section--ceramic { background: var(--c-ceramic); }
+
+    /* ============================================================
+       SCROLL REVEAL
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.25,0.1,0.25,1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .stagger > * {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.25,0.1,0.25,1);
+    }
+    .stagger.visible > *:nth-child(1) { opacity:1; transform:translateY(0); transition-delay:0.00s; }
+    .stagger.visible > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay:0.08s; }
+    .stagger.visible > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay:0.16s; }
+    .stagger.visible > *:nth-child(4) { opacity:1; transform:translateY(0); transition-delay:0.24s; }
+    .stagger.visible > *:nth-child(5) { opacity:1; transform:translateY(0); transition-delay:0.32s; }
+    .stagger.visible > *:nth-child(6) { opacity:1; transform:translateY(0); transition-delay:0.40s; }
+    .stagger.visible > *:nth-child(7) { opacity:1; transform:translateY(0); transition-delay:0.48s; }
+    .stagger.visible > *:nth-child(8) { opacity:1; transform:translateY(0); transition-delay:0.56s; }
+
+    /* ============================================================
+       BUTTONS — 50px full-pill, scale(0.95) active (Starbucks DNA)
+    ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--s-2);
+      border-radius: var(--r-pill);
+      padding: 10px 22px;
+      font-family: var(--f-body);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .btn:active { transform: scale(0.95); }
+
+    .btn-primary  { background: var(--c-cta);  color: #fff; border-color: var(--c-cta); }
+    .btn-primary:hover { background: var(--c-cta-hover); border-color: var(--c-cta-hover); }
+
+    .btn-outline  { background: transparent; color: var(--c-cta); border-color: var(--c-cta); }
+    .btn-outline:hover { background: rgba(74,124,36,0.08); }
+
+    .btn-on-dark  { background: #fff; color: var(--c-cta); border-color: #fff; }
+    .btn-on-dark:hover { background: rgba(255,255,255,0.90); }
+
+    .btn-outline-dark { background: transparent; color: #fff; border-color: rgba(255,255,255,0.65); }
+    .btn-outline-dark:hover { background: rgba(255,255,255,0.10); }
+
+    /* ============================================================
+       TYPOGRAPHY HELPERS
+    ============================================================ */
+    .eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--c-cta);
+      margin-bottom: var(--s-3);
+    }
+    .eyebrow--dark { color: var(--c-amber-light); }
+
+    .h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 600;
+      color: var(--c-brand);
+      line-height: 1.18;
+      letter-spacing: -0.025em;
+    }
+    .h2--serif  { font-family: var(--f-display); }
+    .h2--ondark { color: var(--c-on-dark); }
+
+    .section-sub {
+      margin-top: var(--s-3);
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--c-ink-soft);
+    }
+
+    /* ============================================================
+       1. NAVBAR
+    ============================================================ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 68px;
+      background: var(--c-canvas);
+      box-shadow: var(--shadow-nav);
+      display: flex;
+      align-items: center;
+    }
+    .nav__inner {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--s-3);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    @media (min-width: 1024px) { .nav__inner { padding: 0 var(--s-6); } }
+
+    .nav__logo {
+      font-family: var(--f-display);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--c-brand);
+      letter-spacing: -0.02em;
+    }
+    .nav__logo em { font-style: italic; color: var(--c-cta); }
+
+    .nav__links {
+      display: none;
+      list-style: none;
+      align-items: center;
+      gap: var(--s-6);
+    }
+    @media (min-width: 768px) { .nav__links { display: flex; } }
+    .nav__links a { font-size: 15px; font-weight: 600; color: var(--c-ink); transition: color 0.2s; }
+    .nav__links a:hover { color: var(--c-cta); }
+
+    .nav__right { display: flex; align-items: center; gap: var(--s-3); }
+
+    .nav__burger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    @media (min-width: 768px) { .nav__burger { display: none; } }
+    .nav__burger span {
+      display: block;
+      width: 22px; height: 2px;
+      background: var(--c-ink);
+      border-radius: 2px;
+      transition: all 0.25s;
+    }
+    .nav__burger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .nav__burger.open span:nth-child(2) { opacity: 0; }
+    .nav__burger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* Mobile drawer */
+    .nav__drawer {
+      position: fixed;
+      top: 68px; left: 0; right: 0;
+      background: var(--c-canvas);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.10);
+      z-index: 99;
+      padding: var(--s-4) var(--s-3);
+      display: none;
+      flex-direction: column;
+      gap: var(--s-1);
+    }
+    .nav__drawer.open { display: flex; }
+    @media (min-width: 768px) { .nav__drawer { display: none !important; } }
+    .nav__drawer a {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--c-ink);
+      padding: 12px 0;
+      border-bottom: 1px solid var(--c-ceramic);
+    }
+
+    /* ============================================================
+       2. HERO — cream canvas, 60/40 split, word-reveal headline
+    ============================================================ */
+    .hero {
+      background: var(--c-canvas);
+      padding-top: 68px;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+    }
+    .hero__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--s-8);
+      padding: var(--s-8) 0;
+      align-items: center;
+    }
+    @media (min-width: 768px) {
+      .hero__grid {
+        grid-template-columns: 60% 1fr;
+        gap: var(--s-6);
+      }
+    }
+
+    .hero__content { order: 2; }
+    .hero__visual  { order: 1; }
+    @media (min-width: 768px) {
+      .hero__content { order: 1; }
+      .hero__visual  { order: 2; }
+    }
+
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--c-amber-light);
+      color: var(--c-amber);
+      border: 1px solid rgba(196,122,40,0.22);
+      border-radius: var(--r-pill);
+      padding: 5px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: var(--s-4);
+    }
+
+    .hero__headline {
+      font-family: var(--f-display);
+      font-size: clamp(36px, 5.5vw, 68px);
+      font-weight: 600;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      color: var(--c-brand);
+      margin-bottom: var(--s-4);
+    }
+
+    /* Word-by-word reveal animation */
+    .hero__headline .w {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(18px);
+      filter: blur(5px);
+      animation: wReveal 0.6s cubic-bezier(0.25,0.1,0.25,1) forwards;
+    }
+    @keyframes wReveal {
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+
+    .hero__sub {
+      font-size: clamp(15px, 1.7vw, 17px);
+      line-height: 1.7;
+      color: var(--c-ink-soft);
+      max-width: 460px;
+      margin-bottom: var(--s-5);
+    }
+
+    .hero__ctas { display: flex; flex-wrap: wrap; gap: var(--s-3); }
+
+    /* Photo + steam */
+    .hero__visual { position: relative; }
+
+    .hero__img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      border-radius: 24px;
+      box-shadow: 0 24px 64px rgba(45,80,22,0.22);
+    }
+
+    .hero__steam {
+      position: absolute;
+      top: -22px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 72px;
+      opacity: 0.5;
+    }
+    .hero__steam path {
+      stroke: var(--c-cta);
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      animation: steam 2.6s ease-in-out infinite;
+    }
+    .hero__steam path:nth-child(2) { animation-delay: 0.45s; }
+    .hero__steam path:nth-child(3) { animation-delay: 0.9s; }
+    @keyframes steam {
+      0%,100% { opacity: 0; transform: translateY(0) scaleX(1); }
+      30%      { opacity: 1; }
+      80%      { opacity: 0; transform: translateY(-16px) scaleX(1.2); }
+    }
+
+    .hero__caption {
+      position: absolute;
+      bottom: 18px;
+      left: 18px;
+      right: 18px;
+      background: rgba(30,45,20,0.76);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 10px;
+      padding: 12px 16px;
+    }
+    .hero__caption strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 2px;
+    }
+    .hero__caption span { font-size: 12px; color: var(--c-on-dark-soft); }
+
+    /* ============================================================
+       3. STORY — white section, editorial 2-col, serif headline
+    ============================================================ */
+    .story__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--s-9);
+      align-items: center;
+    }
+    @media (min-width: 768px) { .story__grid { grid-template-columns: 1fr 1fr; } }
+
+    .story__img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      border-radius: var(--r-card);
+      box-shadow: var(--shadow-card);
+    }
+
+    .story__quote {
+      font-family: var(--f-display);
+      font-style: italic;
+      font-size: clamp(17px, 2.2vw, 21px);
+      color: var(--c-brand);
+      border-left: 3px solid var(--c-cta);
+      padding-left: var(--s-4);
+      line-height: 1.5;
+      margin: var(--s-5) 0;
+    }
+
+    .story__body { font-size: 15px; line-height: 1.8; color: var(--c-ink); }
+
+    .story__stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--s-5);
+      margin-top: var(--s-5);
+    }
+    .story__stat dt {
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--c-brand);
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+    .story__stat dd {
+      font-size: 12px;
+      color: var(--c-ink-soft);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    /* ============================================================
+       4. BREAD MENU — canvas, tab filter, card grid
+    ============================================================ */
+    .menu__header { text-align: center; margin-bottom: var(--s-7); }
+    .menu__header .section-sub { max-width: 520px; margin: var(--s-3) auto 0; text-align: center; }
+
+    .menu__tabs {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: var(--s-2);
+      margin-bottom: var(--s-6);
+    }
+    .menu__tab {
+      padding: 8px 20px;
+      border-radius: var(--r-pill);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      background: var(--c-white);
+      color: var(--c-ink-soft);
+      border: 1.5px solid var(--c-ceramic);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .menu__tab:hover  { border-color: var(--c-cta); color: var(--c-cta); }
+    .menu__tab.active { background: var(--c-cta); color: #fff; border-color: var(--c-cta); }
+
+    .menu__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: var(--s-4);
+    }
+
+    .menu__card {
+      background: var(--c-white);
+      border-radius: var(--r-card);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .menu__card:hover {
+      transform: translateY(-6px) rotate(-0.4deg);
+      box-shadow: 0 14px 36px rgba(45,80,22,0.14);
+    }
+    .menu__card:hover .menu__card-img { transform: scale(1.06); }
+    .menu__card.hidden { display: none; }
+
+    .menu__card-imgwrap { aspect-ratio: 1/1; overflow: hidden; }
+    .menu__card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s ease; }
+
+    .menu__card-body { padding: 15px; }
+    .menu__card-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--c-cta);
+      margin-bottom: 5px;
+    }
+    .menu__card-name  { font-size: 16px; font-weight: 700; color: var(--c-ink); margin-bottom: 5px; }
+    .menu__card-desc  { font-size: 13px; line-height: 1.5; color: var(--c-ink-soft); margin-bottom: 11px; }
+    .menu__card-price { font-size: 15px; font-weight: 700; color: var(--c-brand); }
+
+    /* ============================================================
+       5. PASTRY — white, horizontal scroll snap
+    ============================================================ */
+    .pastry__header { text-align: center; margin-bottom: var(--s-6); }
+    .pastry__header .section-sub { max-width: 480px; margin: var(--s-3) auto 0; text-align: center; }
+
+    .pastry__scroll {
+      display: flex;
+      gap: var(--s-4);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: var(--s-2);
+      scrollbar-width: thin;
+      scrollbar-color: var(--c-ceramic) transparent;
+    }
+    .pastry__scroll::-webkit-scrollbar { height: 4px; }
+    .pastry__scroll::-webkit-scrollbar-thumb { background: var(--c-ceramic); border-radius: 4px; }
+
+    .pastry__card {
+      flex: 0 0 240px;
+      scroll-snap-align: start;
+      background: var(--c-white);
+      border-radius: var(--r-card);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+    .pastry__card:hover { transform: rotate(-1deg) scale(1.02); }
+
+    .pastry__card-imgwrap { aspect-ratio: 1/1; overflow: hidden; }
+    .pastry__card-img { width: 100%; height: 100%; object-fit: cover; }
+    .pastry__card-body { padding: 13px 15px; }
+    .pastry__card-name  { font-size: 15px; font-weight: 700; color: var(--c-ink); margin-bottom: 3px; }
+    .pastry__card-price { font-size: 13px; font-weight: 600; color: var(--c-cta); }
+
+    /* ============================================================
+       6. DAILY SCHEDULE — canvas, vertical timeline + photo
+    ============================================================ */
+    .schedule__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--s-9);
+      align-items: start;
+    }
+    @media (min-width: 768px) { .schedule__grid { grid-template-columns: 1fr 1fr; } }
+
+    .timeline { position: relative; padding-left: 40px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 10px; top: 8px; bottom: 8px;
+      width: 2px;
+      background: rgba(74,124,36,0.22);
+      border-radius: 2px;
+    }
+
+    .tl-item {
+      position: relative;
+      padding-bottom: var(--s-5);
+      opacity: 0;
+      transform: translateX(-14px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+    .tl-item:last-child { padding-bottom: 0; }
+    .timeline.visible .tl-item:nth-child(1) { opacity:1; transform:translateX(0); transition-delay:0.00s; }
+    .timeline.visible .tl-item:nth-child(2) { opacity:1; transform:translateX(0); transition-delay:0.12s; }
+    .timeline.visible .tl-item:nth-child(3) { opacity:1; transform:translateX(0); transition-delay:0.24s; }
+    .timeline.visible .tl-item:nth-child(4) { opacity:1; transform:translateX(0); transition-delay:0.36s; }
+    .timeline.visible .tl-item:nth-child(5) { opacity:1; transform:translateX(0); transition-delay:0.48s; }
+
+    .tl-dot {
+      position: absolute;
+      left: -34px; top: 4px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--c-cta);
+      border: 3px solid var(--c-canvas);
+      box-shadow: 0 0 0 2px var(--c-cta);
+      transition: box-shadow 0.3s;
+    }
+    .tl-item.now .tl-dot {
+      background: var(--c-brand);
+      box-shadow: 0 0 0 2px var(--c-brand);
+      animation: tlPulse 1.8s ease-in-out infinite;
+    }
+    @keyframes tlPulse {
+      0%,100% { box-shadow: 0 0 0 2px var(--c-brand); }
+      50%      { box-shadow: 0 0 0 2px var(--c-brand), 0 0 12px rgba(74,124,36,0.5); }
+    }
+
+    .tl-time  { font-size: 12px; font-weight: 700; letter-spacing: 0.05em; color: var(--c-cta); margin-bottom: 3px; }
+    .tl-title { font-size: 16px; font-weight: 700; color: var(--c-brand); margin-bottom: 2px; }
+    .tl-desc  { font-size: 13px; line-height: 1.5; color: var(--c-ink-soft); }
+
+    .schedule__img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: var(--r-card);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+    }
+
+    /* ============================================================
+       7. PRE-ORDER BAND — dark forest, serif headline
+    ============================================================ */
+    .preorder__inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--s-6);
+      align-items: center;
+    }
+    @media (min-width: 768px) { .preorder__inner { grid-template-columns: 1fr auto; } }
+
+    .preorder__heading {
+      font-family: var(--f-display);
+      font-size: clamp(24px, 4vw, 40px);
+      font-weight: 600;
+      color: var(--c-on-dark);
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      margin-bottom: var(--s-3);
+    }
+    .preorder__body {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--c-on-dark-soft);
+      max-width: 480px;
+    }
+    .preorder__ctas {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-3);
+      flex-shrink: 0;
+    }
+    @media (min-width: 480px) { .preorder__ctas { flex-direction: row; } }
+    @media (min-width: 768px) { .preorder__ctas { flex-direction: column; } }
+
+    /* ============================================================
+       8. WHOLESALE — white, 2-col with feature list
+    ============================================================ */
+    .wholesale__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--s-9);
+      align-items: center;
+    }
+    @media (min-width: 768px) { .wholesale__grid { grid-template-columns: 1fr 1fr; } }
+
+    .wholesale__img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: var(--r-card);
+      box-shadow: var(--shadow-card);
+    }
+
+    .wholesale__features { list-style: none; display: flex; flex-direction: column; gap: var(--s-4); margin: var(--s-5) 0; }
+    .wholesale__feature  { display: flex; gap: var(--s-3); align-items: flex-start; }
+    .wholesale__icon {
+      flex-shrink: 0;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: rgba(74,124,36,0.10);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+    .wholesale__feature-title { font-size: 14px; font-weight: 700; color: var(--c-ink); margin-bottom: 2px; }
+    .wholesale__feature-desc  { font-size: 13px; color: var(--c-ink-soft); line-height: 1.5; }
+
+    /* ============================================================
+       9. VISIT US — canvas, info + map
+    ============================================================ */
+    .visit__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--s-7);
+    }
+    @media (min-width: 768px) { .visit__grid { grid-template-columns: 1fr 1fr; } }
+
+    .visit__info { display: flex; flex-direction: column; gap: var(--s-5); }
+    .visit__item { display: flex; gap: var(--s-3); align-items: flex-start; }
+    .visit__item-icon {
+      flex-shrink: 0;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(74,124,36,0.10);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .visit__item-title { font-size: 14px; font-weight: 700; color: var(--c-brand); margin-bottom: 4px; }
+    .visit__item-text  { font-size: 13px; color: var(--c-ink-soft); line-height: 1.6; }
+
+    .hours-table { width: 100%; border-collapse: collapse; }
+    .hours-table tr { border-bottom: 1px solid var(--c-ceramic); }
+    .hours-table td { padding: 7px 0; font-size: 13px; }
+    .hours-table td:first-child { font-weight: 700; color: var(--c-brand); width: 50%; }
+    .hours-table td:last-child  { color: var(--c-ink-soft); }
+    .hours-table tr.today td   { color: var(--c-cta) !important; font-weight: 700; }
+
+    .visit__map {
+      width: 100%;
+      aspect-ratio: 4/3;
+      border-radius: var(--r-card);
+      overflow: hidden;
+      background: var(--c-ceramic);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: var(--s-3);
+      min-height: 280px;
+    }
+    .visit__map-icon  { font-size: 40px; }
+    .visit__map-label { font-size: 13px; color: var(--c-ink-soft); font-weight: 600; text-align: center; }
+
+    /* ============================================================
+       NEWSLETTER STRIP — amber light band
+    ============================================================ */
+    .newsletter {
+      background: var(--c-amber-light);
+      border-top: 1px solid rgba(196,122,40,0.18);
+      border-bottom: 1px solid rgba(196,122,40,0.18);
+      padding: var(--s-5) 0;
+    }
+    .newsletter__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--s-4);
+    }
+    .newsletter__copy { font-size: 15px; font-weight: 600; color: var(--c-brand); }
+    .newsletter__copy mark { background: none; color: var(--c-amber); }
+
+    .newsletter__form { display: flex; gap: var(--s-2); flex-wrap: wrap; }
+    .newsletter__input {
+      border: 1.5px solid rgba(196,122,40,0.28);
+      border-radius: var(--r-pill);
+      padding: 10px 18px;
+      font-size: 14px;
+      font-family: var(--f-body);
+      background: #fff;
+      color: var(--c-ink);
+      outline: none;
+      min-width: 200px;
+      transition: border-color 0.2s;
+    }
+    .newsletter__input:focus { border-color: var(--c-cta); }
+    .newsletter__input::placeholder { color: var(--c-ink-soft); }
+
+    /* ============================================================
+       10. FOOTER — dark forest
+    ============================================================ */
+    .footer { background: var(--c-band); color: var(--c-on-dark); padding: var(--s-9) 0 var(--s-5); }
+
+    .footer__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--s-7);
+      margin-bottom: var(--s-7);
+    }
+    @media (min-width: 640px)  { .footer__grid { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 1024px) { .footer__grid { grid-template-columns: 2fr 1fr 1fr 1fr; gap: var(--s-5); } }
+
+    .footer__logo {
+      font-family: var(--f-display);
+      font-size: 24px;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--s-3);
+    }
+    .footer__logo em { font-style: italic; color: rgba(255,255,255,0.55); }
+
+    .footer__tagline {
+      font-family: var(--f-display);
+      font-style: italic;
+      font-size: 14px;
+      color: var(--c-on-dark-soft);
+      line-height: 1.6;
+      margin-bottom: var(--s-4);
+    }
+
+    .footer__socials { display: flex; gap: var(--s-3); }
+    .footer__social-link {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.22);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--c-on-dark-soft);
+      font-size: 15px;
+      transition: all 0.2s;
+    }
+    .footer__social-link:hover { border-color: rgba(255,255,255,0.55); color: #fff; background: rgba(255,255,255,0.07); }
+
+    .footer__col-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.38);
+      margin-bottom: var(--s-4);
+    }
+    .footer__links { list-style: none; display: flex; flex-direction: column; gap: var(--s-3); }
+    .footer__links a { font-size: 13px; color: var(--c-on-dark-soft); transition: color 0.2s; }
+    .footer__links a:hover { color: #fff; }
+
+    .footer__divider { border: none; border-top: 1px solid rgba(255,255,255,0.09); margin-bottom: var(--s-5); }
+
+    .footer__bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--s-3);
+    }
+    .footer__copy { font-size: 12px; color: rgba(255,255,255,0.32); }
+
+    /* ============================================================
+       FLOATING WA BUTTON — Frap pattern (Starbucks DNA)
+    ============================================================ */
+    .frap {
+      position: fixed;
+      bottom: 26px; right: 22px;
+      z-index: 200;
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--c-cta);
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--shadow-frap);
+      transition: transform 0.2s ease;
+      cursor: pointer;
+    }
+    .frap:hover  { transform: scale(1.08); }
+    .frap:active { transform: scale(0.95); }
+  </style>
+</head>
+<body>
+
+<!-- ====================================================
+     NAVBAR
+==================================================== -->
+<nav class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo">Loaf <em>& Co.</em></a>
+
+    <ul class="nav__links">
+      <li><a href="#menu">Roti</a></li>
+      <li><a href="#pastry">Pastry</a></li>
+      <li><a href="#story">Cerita Kami</a></li>
+      <li><a href="#wholesale">Wholesale</a></li>
+      <li><a href="#visit">Lokasi</a></li>
+    </ul>
+
+    <div class="nav__right">
+      <a href="https://wa.me/6281234567890?text=Halo%2C%20saya%20ingin%20pre-order"
+         class="btn btn-primary"
+         style="padding:8px 18px;font-size:14px;">Pesan Sekarang</a>
+      <button class="nav__burger" id="burger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="nav__drawer" id="drawer">
+  <a href="#menu">Roti</a>
+  <a href="#pastry">Pastry</a>
+  <a href="#story">Cerita Kami</a>
+  <a href="#wholesale">Wholesale</a>
+  <a href="#visit">Lokasi</a>
+</div>
+
+
+<!-- ====================================================
+     HERO
+==================================================== -->
+<section class="hero section--canvas" id="home">
+  <div class="container">
+    <div class="hero__grid">
+
+      <div class="hero__content">
+        <div class="hero__badge">🌾 Fermentasi 24 Jam</div>
+
+        <h1 class="hero__headline">
+          <span class="w" style="animation-delay:.05s">Aroma</span>&nbsp;<span class="w" style="animation-delay:.13s">Roti</span>&nbsp;<span class="w" style="animation-delay:.21s">Segar,</span><br>
+          <span class="w" style="animation-delay:.29s">Setiap</span>&nbsp;<span class="w" style="animation-delay:.37s">Pagi.</span>
+        </h1>
+
+        <p class="hero__sub">
+          Sourdough, ciabatta, dan pastry yang dipanggang <em>fresh</em> setiap hari di Jakarta Selatan.
+          Tanpa pengawet, tanpa pemanis buatan.
+        </p>
+
+        <div class="hero__ctas">
+          <a href="#menu" class="btn btn-primary">Lihat Menu Hari Ini</a>
+          <a href="#preorder" class="btn btn-outline">Cara Pre-Order</a>
+        </div>
+      </div>
+
+      <div class="hero__visual">
+        <svg class="hero__steam" viewBox="0 0 80 44" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14 42 Q9 30 14 18 Q19 6 14 0"/>
+          <path d="M40 42 Q35 28 40 18 Q45 8 40 0"/>
+          <path d="M66 42 Q61 30 66 18 Q71 6 66 0"/>
+        </svg>
+
+        <img
+          src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&h=1000&fit=crop&q=80"
+          alt="Country sourdough baru keluar oven — Loaf & Co."
+          class="hero__img"
+          loading="eager"
+          fetchpriority="high"
+        />
+
+        <div class="hero__caption">
+          <strong>Country Sourdough</strong>
+          <span>Dipanggang pagi ini, 06:00 WIB</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ====================================================
+     STORY
+==================================================== -->
+<section class="section section--white" id="story">
+  <div class="container">
+    <div class="story__grid reveal">
+
+      <div>
+        <img
+          src="https://images.unsplash.com/photo-1547592180-85f173990554?w=800&h=1000&fit=crop&q=80"
+          alt="Tangan baker membentuk adonan sourdough di Loaf & Co."
+          class="story__img"
+          loading="lazy"
+        />
+      </div>
+
+      <div>
+        <span class="eyebrow">Cerita Kami</span>
+        <h2 class="h2 h2--serif">Dimulai Dari<br>Satu Loyang</h2>
+
+        <blockquote class="story__quote">
+          "Roti yang baik butuh waktu.<br>Kami tidak pernah mau mempersingkat itu."
+        </blockquote>
+
+        <p class="story__body">
+          Loaf & Co. lahir dari obsesi pendiri kami, Bu Maya, terhadap roti sourdough yang difermentasi 24 jam.
+          Setelah tiga tahun bereksperimen di dapur rumah, kami membuka toko kecil pada 2022.
+        </p>
+        <br>
+        <p class="story__body">
+          Setiap loyang masih kami panggang dengan tangan — tanpa shortcut, tanpa kompromi. Starter sourdough kami
+          sudah berumur empat tahun, dirawat setiap hari seperti anggota keluarga.
+        </p>
+
+        <dl class="story__stats stagger">
+          <div class="story__stat">
+            <dt>4+</dt>
+            <dd>tahun<br>berdiri</dd>
+          </div>
+          <div class="story__stat">
+            <dt>24 jam</dt>
+            <dd>fermentasi<br>minimum</dd>
+          </div>
+          <div class="story__stat">
+            <dt>15+</dt>
+            <dd>cafe partner<br>di Jakarta</dd>
+          </div>
+          <div class="story__stat">
+            <dt>0</dt>
+            <dd>bahan<br>pengawet</dd>
+          </div>
+        </dl>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ====================================================
+     BREAD MENU
+==================================================== -->
+<section class="section section--canvas" id="menu">
+  <div class="container">
+
+    <div class="menu__header reveal">
+      <span class="eyebrow">Menu Roti Kami</span>
+      <h2 class="h2">Pilih Roti Favoritmu</h2>
+      <p class="section-sub">Semua roti difermentasi minimum 24 jam untuk rasa yang lebih kompleks dan pencernaan yang lebih ringan.</p>
+    </div>
+
+    <div class="menu__tabs reveal">
+      <button class="menu__tab active" data-filter="all">Semua</button>
+      <button class="menu__tab" data-filter="sourdough">Sourdough</button>
+      <button class="menu__tab" data-filter="soft">Soft Bread</button>
+      <button class="menu__tab" data-filter="specialty">Specialty</button>
+    </div>
+
+    <div class="menu__grid stagger" id="menuGrid">
+
+      <div class="menu__card" data-cat="sourdough">
+        <div class="menu__card-imgwrap">
+          <img src="https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=600&h=600&fit=crop&q=80" alt="Country Sourdough" class="menu__card-img" loading="lazy">
+        </div>
+        <div class="menu__card-body">
+          <div class="menu__card-tag">Sourdough</div>
+          <div class="menu__card-name">Country Sourdough</div>
+          <p class="menu__card-desc">Crust tebal krispi, crumb terbuka sempurna. Klasik yang tidak pernah salah.</p>
+          <div class="menu__card-price">Rp 65.000</div>
+        </div>
+      </div>
+
+      <div class="menu__card" data-cat="sourdough">
+        <div class="menu__card-imgwrap">
+          <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&h=600&fit=crop&q=80" alt="Whole Wheat Sourdough" class="menu__card-img" loading="lazy">
+        </div>
+        <div class="menu__card-body">
+          <div class="menu__card-tag">Sourdough</div>
+          <div class="menu__card-name">Whole Wheat Sourdough</div>
+          <p class="menu__card-desc">Gandum utuh 30%, earthy dan lebih nutri. Crumb sedikit lebih rapat.</p>
+          <div class="menu__card-price">Rp 70.000</div>
+        </div>
+      </div>
+
+      <div class="menu__card" data-cat="sourdough">
+        <div class="menu__card-imgwrap">
+          <img src="https://images.unsplash.com/photo-1603532648955-039310d9ed75?w=600&h=600&fit=crop&q=80" alt="Olive Sourdough" class="menu__card-img" loading="lazy">
+        </div>
+        <div class="menu__card-body">
+          <div class="menu__card-tag">Sourdough</div>
+          <div class="menu__card-name">Olive Sourdough</div>
+          <p class="menu__card-desc">Potongan zaitun hitam & hijau di setiap loyang. Cocok untuk teman makan malam.</p>
+          <div class="menu__card-price">Rp 75.000</div>
+        </div>
+      </div>
+
+      <div class="menu__card" data-cat="soft">
+        <div class="menu__card-imgwrap">
+          <img src="https://images.unsplash.com/photo-1574085733277-851d9d856a3a?w=600&h=600&fit=crop&q=80" alt="Japanese Milk Bread" class="menu__card-img" loading="lazy">
+        </div>
+        <div class="menu__card-body">
+          <div class="menu__card-tag">Soft Bread</div>
+          <div class="menu__card-name">Japanese Milk Bread</div>
+          <p class="menu__card-desc">Teknik Tangzhong untuk tekstur seperti kapas. Dimakan polos pun sudah nikmat.</p>
+          <div class="menu__card-price">Rp 55.000</div>
+        </div>
+      </div>
+
+      <div class="menu__card" data-cat="soft">
+        <div class="menu__card-imgwrap">
+          <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc7b?w=600&h=600&fit=crop&q=80" alt="Brioche Loaf" class="menu__card-img" loading="lazy">
+        </div>
+        <div class="menu__card-body">
+          <div class="menu__card-tag">Soft Bread</div>
+          <div class="menu__card-name">Brioche Loaf</div>
+          <p class="menu__card-desc">Butter tinggi, crumb lembut kekuningan. Terbaik untuk French toast weekend-mu.</p>
+          <div class="menu__card-price">Rp 60.000</div>
+        </div>
+      </div>
+
+      <div class="menu__card" data-cat="specialty">
+        <div class="menu__card-imgwrap">
+          <img src="https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?w=600&h=600&fit=crop&q=80" alt="Rye Bread" class="menu__card-img" loading="lazy">
+        </div>
+        <div class="menu__card-body">
+          <div class="menu__card-tag">Specialty</div>
+          <div class="menu__card-name">Rye Bread</div>
+          <p class="menu__card-desc">Dense, dark, earthy flavor khas rye. Klasik Eropa Utara dari dapur kami.</p>
+          <div class="menu__card-price">Rp 75.000</div>
+        </div>
+      </div>
+
+      <div class="menu__card" data-cat="specialty">
+        <div class="menu__card-imgwrap">
+          <img src="https://images.unsplash.com/photo-1513890677-c6b3fe8a6af2?w=600&h=600&fit=crop&q=80" alt="Focaccia Rosemary" class="menu__card-img" loading="lazy">
+        </div>
+        <div class="menu__card-body">
+          <div class="menu__card-tag">Specialty</div>
+          <div class="menu__card-name">Focaccia Rosemary</div>
+          <p class="menu__card-desc">Lembab, berminyak olive, taburan rosemary fresh. Dipotong sesi sore.</p>
+          <div class="menu__card-price">Rp 50.000</div>
+        </div>
+      </div>
+
+      <div class="menu__card" data-cat="specialty">
+        <div class="menu__card-imgwrap">
+          <img src="https://images.unsplash.com/photo-1548365328-8c6db3220e4c?w=600&h=600&fit=crop&q=80" alt="Ciabatta" class="menu__card-img" loading="lazy">
+        </div>
+        <div class="menu__card-body">
+          <div class="menu__card-tag">Specialty</div>
+          <div class="menu__card-name">Ciabatta</div>
+          <p class="menu__card-desc">High-hydration dough, lubang besar di crumb. Sempurna untuk bruschetta.</p>
+          <div class="menu__card-price">Rp 45.000</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ====================================================
+     PASTRY
+==================================================== -->
+<section class="section section--white" id="pastry">
+  <div class="container">
+
+    <div class="pastry__header reveal">
+      <span class="eyebrow">Pastry Kami</span>
+      <h2 class="h2">Buttery. Berlapis. Sempurna.</h2>
+      <p class="section-sub">Setiap croissant kami butuh 3 hari proses — lipat butter, istirahat di chiller, lipat lagi. Hasilnya: 81 lapisan tipis yang renyah di luar, lembut di dalam.</p>
+    </div>
+
+    <div class="pastry__scroll reveal">
+
+      <div class="pastry__card">
+        <div class="pastry__card-imgwrap">
+          <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=480&h=480&fit=crop&q=80" alt="Plain Croissant" class="pastry__card-img" loading="lazy">
+        </div>
+        <div class="pastry__card-body">
+          <div class="pastry__card-name">Plain Croissant</div>
+          <div class="pastry__card-price">Rp 25.000</div>
+        </div>
+      </div>
+
+      <div class="pastry__card">
+        <div class="pastry__card-imgwrap">
+          <img src="https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?w=480&h=480&fit=crop&q=80" alt="Pain au Chocolat" class="pastry__card-img" loading="lazy">
+        </div>
+        <div class="pastry__card-body">
+          <div class="pastry__card-name">Pain au Chocolat</div>
+          <div class="pastry__card-price">Rp 30.000</div>
+        </div>
+      </div>
+
+      <div class="pastry__card">
+        <div class="pastry__card-imgwrap">
+          <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=480&h=480&fit=crop&q=80" alt="Almond Croissant" class="pastry__card-img" loading="lazy">
+        </div>
+        <div class="pastry__card-body">
+          <div class="pastry__card-name">Almond Croissant</div>
+          <div class="pastry__card-price">Rp 35.000</div>
+        </div>
+      </div>
+
+      <div class="pastry__card">
+        <div class="pastry__card-imgwrap">
+          <img src="https://images.unsplash.com/photo-1730235341656-b07152f891a9?w=480&h=480&fit=crop&q=80" alt="Cinnamon Roll" class="pastry__card-img" loading="lazy">
+        </div>
+        <div class="pastry__card-body">
+          <div class="pastry__card-name">Cinnamon Roll</div>
+          <div class="pastry__card-price">Rp 28.000</div>
+        </div>
+      </div>
+
+      <div class="pastry__card">
+        <div class="pastry__card-imgwrap">
+          <img src="https://images.unsplash.com/photo-1603532648955-039310d9ed75?w=480&h=480&fit=crop&q=80" alt="Kouign-Amann" class="pastry__card-img" loading="lazy">
+        </div>
+        <div class="pastry__card-body">
+          <div class="pastry__card-name">Kouign-Amann</div>
+          <div class="pastry__card-price">Rp 32.000</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ====================================================
+     DAILY SCHEDULE
+==================================================== -->
+<section class="section section--canvas" id="jadwal">
+  <div class="container">
+
+    <div class="reveal" style="margin-bottom:var(--s-7)">
+      <span class="eyebrow">Jadwal Panggang</span>
+      <h2 class="h2">Datang di Waktu<br>yang Tepat</h2>
+      <p class="section-sub" style="max-width:440px">Roti fresh keluar oven di jam-jam ini. Semakin dekat ke waktu panggang, semakin hangat yang kamu dapat.</p>
+    </div>
+
+    <div class="schedule__grid">
+
+      <div class="timeline" id="timeline">
+
+        <div class="tl-item" data-start="360" data-end="450">
+          <div class="tl-dot"></div>
+          <div class="tl-time">06:00 WIB</div>
+          <div class="tl-title">Sourdough Batch Pertama</div>
+          <div class="tl-desc">Country Sourdough, Whole Wheat, dan Olive — keluar dari deck oven satu per satu.</div>
+        </div>
+
+        <div class="tl-item" data-start="450" data-end="600">
+          <div class="tl-dot"></div>
+          <div class="tl-time">07:30 WIB</div>
+          <div class="tl-title">Croissant & Pastry</div>
+          <div class="tl-desc">Croissant, pain au chocolat, dan danish siap. Datang pagi untuk ini.</div>
+        </div>
+
+        <div class="tl-item" data-start="600" data-end="840">
+          <div class="tl-dot"></div>
+          <div class="tl-time">10:00 WIB</div>
+          <div class="tl-title">Soft Bread & Milk Bread</div>
+          <div class="tl-desc">Japanese milk bread dan brioche loaf fresh dari steam oven. Tekstur terbaik.</div>
+        </div>
+
+        <div class="tl-item" data-start="840" data-end="960">
+          <div class="tl-dot"></div>
+          <div class="tl-time">14:00 WIB</div>
+          <div class="tl-title">Sourdough Batch Kedua</div>
+          <div class="tl-desc">Batch kedua untuk yang kehabisan pagi. Specialty breads ikut batch ini.</div>
+        </div>
+
+        <div class="tl-item" data-start="960" data-end="1140">
+          <div class="tl-dot"></div>
+          <div class="tl-time">16:00 WIB</div>
+          <div class="tl-title">Restock Pastry Sore</div>
+          <div class="tl-desc">Cinnamon roll dan kouign-amann sore. Pas untuk dibawa pulang sebelum tutup.</div>
+        </div>
+
+      </div>
+
+      <div class="reveal">
+        <img
+          src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=800&h=600&fit=crop&q=80"
+          alt="Roti keluar dari oven di Loaf & Co."
+          class="schedule__img"
+          loading="lazy"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ====================================================
+     PRE-ORDER BAND — dark forest
+==================================================== -->
+<section class="section section--band" id="preorder">
+  <div class="container">
+    <div class="preorder__inner reveal">
+
+      <div>
+        <span class="eyebrow eyebrow--dark">Pre-Order</span>
+        <h2 class="preorder__heading">Roti Favoritmu<br>Selalu Habis Cepat?</h2>
+        <p class="preorder__body">Pre-order H-1 sebelum jam 18:00 untuk pickup keesokan harinya. Kami siapkan khusus untukmu — fresh dari oven, bukan sisa rak.</p>
+      </div>
+
+      <div class="preorder__ctas">
+        <a href="https://wa.me/6281234567890?text=Halo%2C%20saya%20ingin%20pre-order%20roti"
+           class="btn btn-on-dark">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Pre-Order via WhatsApp
+        </a>
+        <a href="#jadwal" class="btn btn-outline-dark">Lihat Jadwal Panggang</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ====================================================
+     WHOLESALE
+==================================================== -->
+<section class="section section--white" id="wholesale">
+  <div class="container">
+    <div class="wholesale__grid">
+
+      <div class="reveal">
+        <img
+          src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=600&fit=crop&q=80"
+          alt="Bread display di cafe — Loaf & Co. wholesale"
+          class="wholesale__img"
+          loading="lazy"
+        />
+      </div>
+
+      <div class="reveal">
+        <span class="eyebrow">Wholesale</span>
+        <h2 class="h2 h2--serif">Suplai untuk<br>Cafe & Restoran</h2>
+        <p class="section-sub">Kami suplai roti untuk 15+ cafe di Jakarta. Konsisten, fresh, harga khusus partner.</p>
+
+        <ul class="wholesale__features">
+          <li class="wholesale__feature">
+            <div class="wholesale__icon">🕖</div>
+            <div>
+              <div class="wholesale__feature-title">Pengiriman Pagi Hari</div>
+              <div class="wholesale__feature-desc">Tiba sebelum cafe buka, langsung dari oven ke counter-mu.</div>
+            </div>
+          </li>
+          <li class="wholesale__feature">
+            <div class="wholesale__icon">📦</div>
+            <div>
+              <div class="wholesale__feature-title">Minimum Order Fleksibel</div>
+              <div class="wholesale__feature-desc">Mulai dari 20 loaves/hari. Mix produk sesuai kebutuhan menumu.</div>
+            </div>
+          </li>
+          <li class="wholesale__feature">
+            <div class="wholesale__icon">🤝</div>
+            <div>
+              <div class="wholesale__feature-title">Konsistensi Terjamin</div>
+              <div class="wholesale__feature-desc">Resep dan proses baku. Rasa dan ukuran sama di setiap batch.</div>
+            </div>
+          </li>
+          <li class="wholesale__feature">
+            <div class="wholesale__icon">💬</div>
+            <div>
+              <div class="wholesale__feature-title">Harga Khusus Partner</div>
+              <div class="wholesale__feature-desc">Diskusi langsung untuk volume, jadwal, dan harga terbaik.</div>
+            </div>
+          </li>
+        </ul>
+
+        <a href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20program%20wholesale%20Loaf%20%26%20Co."
+           class="btn btn-primary">Diskusi Wholesale</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ====================================================
+     VISIT US
+==================================================== -->
+<section class="section section--canvas" id="visit">
+  <div class="container">
+
+    <div class="reveal" style="margin-bottom:var(--s-7)">
+      <span class="eyebrow">Kunjungi Kami</span>
+      <h2 class="h2">Mampir &<br>Cicipi Langsung</h2>
+      <p class="section-sub" style="max-width:400px">Toko kami di Jakarta Selatan buka Selasa–Minggu, 07:00–19:00 atau sampai roti habis.</p>
+    </div>
+
+    <div class="visit__grid">
+
+      <div class="visit__info reveal">
+
+        <div class="visit__item">
+          <div class="visit__item-icon">📍</div>
+          <div>
+            <div class="visit__item-title">Alamat</div>
+            <div class="visit__item-text">Jl. Kemang Raya No. 45<br>Kemang, Jakarta Selatan 12730</div>
+          </div>
+        </div>
+
+        <div class="visit__item">
+          <div class="visit__item-icon">🕖</div>
+          <div>
+            <div class="visit__item-title">Jam Buka</div>
+            <table class="hours-table">
+              <tbody id="hoursTable">
+                <tr data-day="2,3,4,5"><td>Selasa – Jumat</td><td>07:00 – 19:00</td></tr>
+                <tr data-day="6"><td>Sabtu</td><td>07:00 – 20:00</td></tr>
+                <tr data-day="0"><td>Minggu</td><td>07:00 – 17:00</td></tr>
+                <tr data-day="1"><td>Senin</td><td>Tutup</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="visit__item">
+          <div class="visit__item-icon">📞</div>
+          <div>
+            <div class="visit__item-title">Kontak</div>
+            <div class="visit__item-text">
+              <a href="https://wa.me/6281234567890" style="color:var(--c-cta);font-weight:700">+62 812-3456-7890</a><br>
+              loafandco.jkt@gmail.com
+            </div>
+          </div>
+        </div>
+
+        <div class="visit__item">
+          <div class="visit__item-icon">🅿️</div>
+          <div>
+            <div class="visit__item-title">Parkir & Akses</div>
+            <div class="visit__item-text">Parkir tersedia di depan toko. 5 menit jalan kaki dari MRT Haji Nawi.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="visit__map reveal">
+        <div class="visit__map-icon">🗺️</div>
+        <div class="visit__map-label">Google Maps<br>Embed Here</div>
+        <a href="https://maps.google.com" target="_blank" rel="noopener"
+           class="btn btn-outline" style="margin-top:8px">Buka di Google Maps</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ====================================================
+     NEWSLETTER STRIP
+==================================================== -->
+<div class="newsletter">
+  <div class="container">
+    <div class="newsletter__inner">
+      <div class="newsletter__copy">
+        🌾 Dapatkan info <mark>menu baru & promo special</mark> langsung ke inbox-mu.
+      </div>
+      <form class="newsletter__form" id="nlForm">
+        <input type="email" placeholder="nama@email.com" class="newsletter__input" required />
+        <button type="submit" class="btn btn-primary">Daftar Gratis</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- ====================================================
+     FOOTER — dark forest bookend (Starbucks DNA)
+==================================================== -->
+<footer class="footer">
+  <div class="container">
+
+    <div class="footer__grid">
+
+      <div>
+        <div class="footer__logo">Loaf <em>& Co.</em></div>
+        <p class="footer__tagline">"Roti hari ini, untuk meja makanmu malam ini."</p>
+        <div class="footer__socials">
+          <a href="#" class="footer__social-link" aria-label="Instagram">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <a href="#" class="footer__social-link" aria-label="TikTok">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+          </a>
+          <a href="https://wa.me/6281234567890" class="footer__social-link" aria-label="WhatsApp">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer__col-title">Menu</div>
+        <ul class="footer__links">
+          <li><a href="#menu">Sourdough</a></li>
+          <li><a href="#menu">Soft Bread</a></li>
+          <li><a href="#pastry">Pastry</a></li>
+          <li><a href="#menu">Specialty</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer__col-title">Info</div>
+        <ul class="footer__links">
+          <li><a href="#story">Cerita Kami</a></li>
+          <li><a href="#jadwal">Jadwal Panggang</a></li>
+          <li><a href="#wholesale">Wholesale</a></li>
+          <li><a href="#visit">Lokasi & Jam Buka</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer__col-title">Kontak</div>
+        <ul class="footer__links">
+          <li><a href="https://wa.me/6281234567890">WhatsApp</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">TikTok</a></li>
+          <li><a href="mailto:loafandco.jkt@gmail.com">Email</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <hr class="footer__divider" />
+
+    <div class="footer__bottom">
+      <p class="footer__copy">© 2024 Loaf & Co. Bakery · Jakarta Selatan</p>
+      <p class="footer__copy">Dibuat dengan adonan dan 24 jam fermentasi.</p>
+    </div>
+
+  </div>
+</footer>
+
+
+<!-- ====================================================
+     FLOATING WA BUTTON (Frap pattern)
+==================================================== -->
+<a href="https://wa.me/6281234567890?text=Halo%20Loaf%20%26%20Co.%2C%20saya%20ingin%20pesan"
+   class="frap" aria-label="Chat WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+
+<script is:inline>
+  /* ---- Scroll reveal ---- */
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.14, rootMargin: '0px 0px -36px 0px' });
+
+  document.querySelectorAll('.reveal, .stagger, .timeline').forEach(el => io.observe(el));
+
+  /* ---- Tab filter ---- */
+  document.querySelectorAll('.menu__tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.menu__tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const f = tab.dataset.filter;
+      document.querySelectorAll('.menu__card').forEach(c => {
+        c.classList.toggle('hidden', f !== 'all' && c.dataset.cat !== f);
+      });
+    });
+  });
+
+  /* ---- Active baking time ---- */
+  const now = new Date();
+  const curMin = now.getHours() * 60 + now.getMinutes();
+  document.querySelectorAll('.tl-item').forEach(item => {
+    const s = +item.dataset.start, e = +item.dataset.end;
+    if (curMin >= s && curMin < e) item.classList.add('now');
+  });
+
+  /* ---- Today's hours highlight ---- */
+  const today = new Date().getDay();
+  document.querySelectorAll('#hoursTable tr').forEach(row => {
+    if (row.dataset.day && row.dataset.day.split(',').map(Number).includes(today)) {
+      row.classList.add('today');
+    }
+  });
+
+  /* ---- Mobile nav ---- */
+  const burger = document.getElementById('burger');
+  const drawer = document.getElementById('drawer');
+  burger.addEventListener('click', () => {
+    const open = drawer.classList.toggle('open');
+    burger.classList.toggle('open', open);
+  });
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    drawer.classList.remove('open');
+    burger.classList.remove('open');
+  }));
+  document.addEventListener('click', e => {
+    if (!burger.contains(e.target) && !drawer.contains(e.target)) {
+      drawer.classList.remove('open');
+      burger.classList.remove('open');
+    }
+  });
+
+  /* ---- Navbar scroll shadow ---- */
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.boxShadow = window.scrollY > 20
+      ? '0 2px 18px rgba(0,0,0,0.13)'
+      : 'var(--shadow-nav)';
+  }, { passive: true });
+
+  /* ---- Newsletter ---- */
+  document.getElementById('nlForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    btn.textContent = '✓ Terdaftar!';
+    btn.style.background = 'var(--c-brand)';
+    e.target.querySelector('input').value = '';
+    setTimeout(() => { btn.textContent = 'Daftar Gratis'; btn.style.background = ''; }, 3000);
+  });
+</script>
+
+</body>
+</html>
