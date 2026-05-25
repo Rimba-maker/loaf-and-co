@@ -20,3 +20,6 @@ pnpm-debug.log*
 
 # Astro
 .astro/
+
+# Documentation
+13-bakery-artisan-PRD.md
