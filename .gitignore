@@ -21,5 +21,7 @@ pnpm-debug.log*
 # Astro
 .astro/
 
-# Documentation
+# Private planning and design context
 13-bakery-artisan-PRD.md
+docs/private/
+.impeccable/
